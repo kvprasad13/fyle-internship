@@ -1,0 +1,9 @@
+
+<div class="border border-black text-xs  p-2 pt-0 mb-4">
+  <h2 class="text-lg text-blue-600 text-wrap">{{ repo.name }}</h2>
+  <p class="text-wrap text-black">{{ repo.description }}</p>
+  <div class="mt-4 space-x-2">
+    <span *ngFor="let tag of repo.tags" class="inline-block bg-blue-500 text-white px-2 py-1 rounded">{{ tag }}</span>
+  </div>
+</div>
+

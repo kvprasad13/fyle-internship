@@ -1,0 +1,86 @@
+<div class="border border-black   p-6 ">
+  <!-- Search Bar -->
+  <div class="flex justify-center p-4 text-1xl">
+    <div class="flex w-full max-w-md">
+      <input
+        type="text"
+        placeholder="Search..."
+        [(ngModel)]="searchQuery"
+        
+        class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <button
+        (click)="onSearch()"
+        class="px-4 py-2 text-white bg-blue-500 rounded-r-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Skeleton Loader for User Details -->
+  <div *ngIf="isLoading; else userContent" class="text-center flex justify-start p-4">
+    <div class="flex flex-col">
+      <div class="bg-gray-300 rounded-full w-24 h-24 mx-0 animate-pulse"></div>
+      <div class="mt-1 bg-gray-300 h-4 w-32 mx-auto animate-pulse"></div>
+    </div>
+    <div class="ml-4 flex-1">
+      <div class="bg-gray-300 h-6 w-48 mt-2 animate-pulse"></div>
+      <div class="bg-gray-300 h-4 w-full mt-2 animate-pulse"></div>
+      <div class="bg-gray-300 h-4 w-32 mt-2 animate-pulse"></div>
+      <div class="bg-gray-300 h-4 w-40 mt-2 animate-pulse"></div>
+    </div>
+  </div>
+
+  <!-- User Content -->
+  <ng-template #userContent>
+    <div *ngIf="user" class="text-center flex justify-start p-4 text-xs font-medium">
+      <div class="flex flex-col items-center">
+
+        <img src="{{ user.avatar_url }}" alt="User Image" class="rounded-full w-32 h-32 border border-gray-300 mx-0 m-0 p-0.5  ">
+        
+        <p class="mt-1 flex items-center justify-center text-sm">
+          <i class="fa fa-link text-xs"></i>
+          <a href="{{ user.url }}" class="ml-1 text-black-500 hover:underline">
+            {{ user.url }}
+          </a>
+        </p>
+      </div>
+      <div class="ml-4 text-start leading-8">
+        <h2 class="text-xl font-semibold mt-2">{{ user.name }}</h2>
+        <p class="mt-1 text-sm text-wrap">{{ user.bio }}</p>
+        <p class="flex items-center justify-start mt-1 text-sm">
+          <i class="fa-solid fa-location-dot mr-2 text-xs"></i>{{ user.location }}
+        </p>
+        <p class="mt-1 text-sm">
+          Twitter: <a href="https://x.com/{{ user.twitter_username }}" class="text-black-500 hover:underline">https://x.com/{{ user.twitter_username }}</a>
+        </p>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Skeleton Loader for Repositories -->
+  <div *ngIf="isLoading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div *ngFor="let i of [1, 2, 3]" class="p-4 border border-gray-200 rounded-lg bg-white animate-pulse">
+      <div class="bg-gray-300 h-4 w-3/4 mb-2"></div>
+      <div class="bg-gray-300 h-4 w-full mb-2"></div>
+      <div class="bg-gray-300 h-4 w-5/6"></div>
+    </div>
+  </div>
+
+  <!-- Repository Content -->
+  <div *ngIf="!isLoading" class="grid grid-cols-2  gap-4">
+    <app-repository *ngFor="let repo of repositories" [repo]="repo"></app-repository>
+  </div>
+
+  <!-- Pagination and Dropdown -->
+  <div class="flex justify-center  flex-auto mt-4">
+    <app-dropdown (limitSubmit)="onLimitSubmit($event)"></app-dropdown>
+    <app-pagination
+      [totalItems]="totalItems"
+      [itemsPerPage]="itemsPerPage"
+      [currentPage]="currentPage"
+      (pageChange)="onPageChange($event)"
+    ></app-pagination>
+  </div>
+</div>

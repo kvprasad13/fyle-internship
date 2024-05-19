@@ -1,0 +1,46 @@
+<div class="flex flex-col items-center space-y-2 text-blue-600  ">
+  <div class="flex items-center  ">
+    <!-- Previous Page Button -->
+    <button (click)="goToPage(currentPage - 1)"
+            [disabled]="currentPage === 1"
+            class=" pb-1 pr-1 border h-7 w-7 border-gray-400 rounded-tl-sm  rounded-bl-sm border-r-0  disabled:opacity-50"
+            [class.cursor-not-allowed]="currentPage === 1">
+      «
+    </button>
+
+    <!-- Page Numbers -->
+    <button *ngFor="let page of pages"
+            (click)="goToPage(page)"
+            [class.bg-blue-500]="page === currentPage"
+            [class.text-white]="page === currentPage"
+            class="p-0 m-0 w-10 h-7   border border-r-0 border-l-1  border-gray-400">
+      {{ page }}
+    </button>
+
+    <!-- Next Page Button -->
+    <button (click)="goToPage(currentPage + 1)"
+            [disabled]="currentPage === totalPages"
+            class="pb-1 pr-1 border h-7 w-7 border-gray-400 rounded-tr-sm  rounded-br-sm disabled:opacity-50"
+            [class.cursor-not-allowed]="currentPage === totalPages">
+      »
+    </button>
+  </div>
+
+  <div class="flex items-center space-x-4">
+    <!-- Older Button -->
+    <button (click)="goToPage(currentPage - 1)"
+            [disabled]="currentPage === 1"
+            class="h-8 px-4 py-2 border  border-gray-400  border-l-0 rounded-full disabled:opacity-50 flex items-center text-sm"
+            [class.cursor-not-allowed]="currentPage === 1">
+      <span class="mr-2">←</span> Older
+    </button>
+
+    <!-- Newer Button -->
+    <button (click)="goToPage(currentPage + 1)"
+            [disabled]="currentPage === totalPages"
+            class=" h-8 px-4 py-2 border border-gray-400 rounded-full disabled:opacity-50 flex items-center justify-center text-sm"
+            [class.cursor-not-allowed]="currentPage === totalPages">
+      Newer <span class="ml-2">→</span>
+    </button>
+  </div>
+</div>
