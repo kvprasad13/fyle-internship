@@ -19,17 +19,3 @@
   ```
   npm start
   ```
-
-
-  ## In Server
-
-  ```
-  cd server
-  npm install
-
-  
-  ```
-   ### Start Server
-   ```
-  npm start
-   ```
